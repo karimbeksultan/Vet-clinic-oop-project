@@ -14,27 +14,34 @@ public class Pet {
         this.gender = gender;
         this.vaccinated = vaccinated;
     }
+    public String getName() {return name;}
+    public String getSpecies() {return species;}
+    public int getAge() {return age;}
+    public Gender getGender() {return gender;}
+    public boolean isVaccinated() {return vaccinated;}
+    public void setName(String name) {this.name = name;}
+    public void setSpecies(String species) {this.species = species;}
+    public void setAge(int age) {this.age = age;}
+    public void setGender(Gender gender) {this.gender = gender;}
+    public void setVaccinated(boolean vaccinated) {this.vaccinated = vaccinated;}
 
-    public String getName() { return name; }
-    public int getAge() { return age; }
-    public boolean isVaccinated() { return vaccinated; }
-
-    public void vaccinate() {
-        if (vaccinated) {
-            System.out.println(name + " уже привит.");
-        } else {
-            vaccinated = true;
-            System.out.println(name + " успешно привит!");
-        }
+    public void birthday(){
+        this.age++;
+        System.out.printf("%s turned %d!\n", name, age);
     }
 
-    public void birthday() {
-        age++;
-        System.out.println("У " + name + " сегодня день рождения! Теперь ему " + age + " лет.");
+    public void vaccinate(){
+        if (!vaccinated){
+            this.vaccinated = true;
+            System.out.printf("%s has been vaccinated!\n", name);
+        }
+        else{
+            System.out.printf("%s is already vaccinated!\n", name);
+        }
     }
 
     @Override
     public String toString() {
-        return name + " (" + species + ", " + age + " лет, " + gender + ", привит: " + vaccinated + ")";
+        return name + "\nSpecies: " + species + "\n" + age + " years old\nGender: " + gender + "\nVaccinated: " + vaccinated;
     }
 }

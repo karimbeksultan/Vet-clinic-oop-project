@@ -2,5 +2,10 @@ package com.beksultan.vetclinic;
 
 public enum Gender {
     MALE,
-    FEMALE
+    FEMALE;
+
+    @Override
+    public String toString() {
+        return name().toLowerCase();
+    }
 }
