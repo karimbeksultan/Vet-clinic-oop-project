@@ -8,10 +8,10 @@ public class Pet {
     private boolean vaccinated;
 
     public Pet(String name, String species, int age, Gender gender, boolean vaccinated) {
-        this.name = name;
-        this.species = species;
-        this.age = age;
-        this.gender = gender;
+        setName(name);
+        setSpecies(species);
+        setAge(age);
+        setGender(gender);
         this.vaccinated = vaccinated;
     }
     public String getName() {return name;}
@@ -19,10 +19,40 @@ public class Pet {
     public int getAge() {return age;}
     public Gender getGender() {return gender;}
     public boolean isVaccinated() {return vaccinated;}
-    public void setName(String name) {this.name = name;}
-    public void setSpecies(String species) {this.species = species;}
-    public void setAge(int age) {this.age = age;}
-    public void setGender(Gender gender) {this.gender = gender;}
+
+    public void setName(String name) {
+        if (Validating.isValidStr(name)) {
+            this.name = name;
+        }
+        else {
+            throw new IllegalArgumentException("Pet name is invalid, please try again with another name!");
+        }
+    }
+    public void setSpecies(String species) {
+        if (Validating.isValidStr(species)) {
+            this.species = species;
+        }
+        else {
+            throw new IllegalArgumentException("Species is invalid, please try again with another species!");
+        }
+    }
+    public void setAge(int age) {
+        if (age >= 0 && age <= 100) {
+            this.age = age;
+        }
+        else {
+            throw new IllegalArgumentException("Age is invalid, please try again with another age!");
+        }
+    }
+    public void setGender(Gender gender) {
+        if (gender != null) {
+            this.gender = gender;
+        }
+        else {
+            throw new IllegalArgumentException("Gender is invalid, please try again with another gender!");
+        }
+    }
+
     public void setVaccinated(boolean vaccinated) {this.vaccinated = vaccinated;}
 
     public void birthday(){

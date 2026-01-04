@@ -9,20 +9,21 @@ public class Veterenarian {
     private int rating;
     private int ratingcount;
 
-    public Veterenarian(String name, String phone, String AnimalSpeciality, int ExperienceYears) {
-        this.name = name;
-        this.phone = phone;
-        this.AnimalSpeciality = AnimalSpeciality;
-        this.Experience = Experience;
+    public Veterenarian(String name, String phone, String animalspeciality, int experienceyears) {
+        setName(name);
+        setPhone(phone);
+        setAnimalSpeciality(animalspeciality);
+        setExperienceYears(experienceyears);
         this.onWork = false;
-        this.rating = 0;
-        this.ratingcount = 0;
+        setRating(0, 0);
     }
+
+
 
     public String getName() {return name;}
     public String getPhone() {return phone;}
     public String getAnimalSpeciality() {return AnimalSpeciality;}
-    public int getExperience() {return Experience;}
+    public int getExperienceYears() {return Experience;}
     public boolean isOnWork() {return onWork;}
     public double getRating() {
         if(ratingcount == 0){
@@ -33,13 +34,45 @@ public class Veterenarian {
         }
     }
 
-    public void setname(String name){this.name = name;}
-    public void setphone(String phone){this.phone = phone;}
+    public void setName(String name) {
+        if (Validating.isValidStr(name)) {
+            this.name = name;
+        }
+        else {
+            throw new IllegalArgumentException("Name is invalid, please try again with another name!");
+        }
+    }
+    public void setPhone(String phone) {
+        if (Validating.isValidStr(phone) && Validating.isNumber(phone)) {
+            this.phone = phone;
+        }
+        else {
+            throw new IllegalArgumentException("Phone is invalid, please try again with another number!");
+        }
+    }
     public void setOnWork(boolean onWork){this.onWork = onWork;}
-    public void setExperience(int experience) {Experience = experience;}
-    public void setAnimalSpeciality(String AnimalSpeciality){this.AnimalSpeciality = AnimalSpeciality;}
-    public void setRating(int rating){this.rating = rating;}
-    public void setRatingcount(int ratingcount){this.ratingcount = ratingcount;}
+    public void setExperienceYears(int experienceyears) {
+        if (Experience >= 0) {
+            this.Experience = experienceyears;
+        }
+        else {
+            throw new IllegalArgumentException("Experience years is invalid!");
+        }
+    }
+    public void setAnimalSpeciality(String animalspeciality){
+        if (Validating.isValidStr(animalspeciality)) {
+            this.AnimalSpeciality = animalspeciality;
+        }
+        else {
+            throw new IllegalArgumentException("Animal Speciality is invalid");
+        }
+    }
+    public void setRating(int rating, int ratingcount){
+        if (rating >= 0 && ratingcount >= 0) {
+            this.rating = rating;
+            this.ratingcount = ratingcount;
+        }
+    }
 
     public void startWork(){this.onWork = true;}
     public void endWork(){this.onWork = false;}
@@ -58,5 +91,5 @@ public class Veterenarian {
     @Override
     public String toString() {
         return name + "(" + AnimalSpeciality + " veterinarian with " + Experience + " years of experience)\nRating: " + getRating() + "\nCurrently at work: " + onWork;
-    }
+         }
 }

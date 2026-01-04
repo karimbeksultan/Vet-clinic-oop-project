@@ -27,11 +27,43 @@ public class Owner {
     public Gender getGender() {return gender;}
     public ArrayList<Pet> getPets() {return pets;}
 
-    public void setName(String name) {this.name = name;}
-    public void setPhone(String phone) {this.phone = phone;}
-    public void setEmail(String email) {this.email = email;}
-    public void setAddress(String address) {this.address = address;}
-    public void setGender(Gender gender) {this.gender = gender;}
+    public void setName(String name) {
+        if (Validating.isValidStr(name)) {
+            this.name = name;
+        }
+        else {
+            throw new IllegalArgumentException("Name is invalid, please try again with another name!");
+        }
+    }
+    public void setPhone(String phone) {
+        if (Validating.isValidStr(phone) && Validating.isNumber(phone)) {
+            this.phone = phone;
+        }
+        else {
+            throw new IllegalArgumentException("Phone is invalid, please try again with another number!");
+        }
+    }
+    public void setEmail(String email) {
+        if (Validating.isValidStr(email) &&  email.contains("@")) {
+            this.email = email;
+        }
+        else {
+            throw new IllegalArgumentException("Email is invalid, please try again with another email!");
+        }
+    }
+    public void setAddress(String address) {
+        if (Validating.isValidStr(address)) {
+            this.address = address;
+        }
+    }
+    public void setGender(Gender gender) {
+        if (gender != null) {
+            this.gender = gender;
+        }
+        else {
+            throw new IllegalArgumentException("Gender is invalid, please try again with another gender!");
+        }
+    }
 
     public void addpet(Pet pet) {pets.add(pet);}
     public void removepet(Pet pet) {pets.remove(pet);}
