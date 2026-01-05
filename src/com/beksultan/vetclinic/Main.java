@@ -1,6 +1,6 @@
 package com.beksultan.vetclinic;
 
-import java.util.ArrayList;  // + needed for ArrayList
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
