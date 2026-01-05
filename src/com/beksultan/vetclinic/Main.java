@@ -1,69 +1,80 @@
 package com.beksultan.vetclinic;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello Everyone!\nThis is my vetclinic application for my oop course");
+        Scanner scanner = new Scanner(System.in);
 
         Pet honeybadger = new Pet("VipKazakh", "Honeybadger", 4, Gender.FEMALE, false);
-        Pet pug = new Pet("Megatron", "pug", 7, Gender.MALE, true);
+        Pet pug = new Pet("Megatron", "Pug", 7, Gender.MALE, true);
 
-        Owner beksultan = new Owner("Beksultan", "+77777777777", "254524@astanait.edu.kz", "Tole BI 46 st", Gender.MALE);
-        Veterenarian aidana = new Veterenarian("Aidana", "+77766666777", "aidana@vet.com", "Every animal", 10);
+        Owner beksultan = new Owner("Beksultan", "+77777777777", "254524@astanait.edu.kz",
+                "Tole BI 46 st", Gender.MALE);
 
-        System.out.println("Testing Pet Class:");
-        System.out.println(honeybadger.getName() + " is " + honeybadger.getAge() + " years old");
-        System.out.println("Pet's name " + honeybadger.getName());
-        if (honeybadger.isVaccinated()){
-            System.out.println(honeybadger.getName() + " is vaccinated");
+        Veterenarian aidana = new Veterenarian("Aidana", "+77766666777", "aidana@vet.com",
+                "Every animal", 10);
+
+        ArrayList<Pet> pets = new ArrayList<>();
+        pets.add(honeybadger);
+        pets.add(pug);
+
+        boolean running = true;
+
+        while (running) {
+            System.out.println("\n=== VET CLINIC MENU ===");
+            System.out.println("1 — Show all pets");
+            System.out.println("2 — Show owner info");
+            System.out.println("3 — Show veterinarian info");
+            System.out.println("4 — Exit");
+            System.out.print("Choose an option: ");
+
+            int choice = Integer.parseInt(scanner.nextLine());
+
+            switch (choice) {
+                case 1:
+                    System.out.println("\n--- PETS INFORMATION ---");
+                    for (Pet pet : pets) {
+                        System.out.println(pet);
+                    }
+                    break;
+
+                case 2:
+                    System.out.println("\n--- OWNER INFORMATION ---");
+                    System.out.println("Name: " + beksultan.getName());
+                    System.out.println("Phone: " + beksultan.getPhone());
+                    System.out.println("Email: " + beksultan.getEmail());
+                    System.out.println("Address: " + beksultan.getAddress());
+                    if (!pets.isEmpty()) {
+                        System.out.println("Pets:");
+                        beksultan.petList();
+                    } else {
+                        System.out.println("No pets to show.");
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("\n--- VETERINARIAN INFORMATION ---");
+                    System.out.println("Name: " + aidana.getName());
+                    System.out.println("Phone: " + aidana.getPhone());
+                    System.out.println("Specialty: " + aidana.getAnimalSpeciality());
+                    System.out.println("Years of Experience: " + aidana.getExperienceYears());
+                    System.out.println("On Work Now: " + aidana.isOnWork());
+                    System.out.println("Rating: " + aidana.getRating());
+                    break;
+
+                case 4:
+                    System.out.println("Exiting application...");
+                    running = false;
+                    break;
+
+                default:
+                    System.out.println("Invalid option! Try again.");
+            }
         }
-        else{
-            System.out.println(honeybadger.getName() + " isn't vaccinated");
-        }
-        System.out.println(honeybadger.getName() + "'s Gender is " + honeybadger.getGender());
-        honeybadger.setName("VipKazakh");
-        honeybadger.setAge(6);
-        honeybadger.vaccinate();
-        System.out.println(honeybadger.getName() + " is " + honeybadger.getAge() + " years old");
-        honeybadger.birthday();
-        System.out.println(honeybadger.getName() + " is " + honeybadger.getAge() + " years old");
-        System.out.println("Pet's name " + honeybadger.getName());
-        honeybadger.vaccinate();
-        System.out.println(honeybadger);
 
-        System.out.println("\nTesting Owner Class:");
-        beksultan.addpet(honeybadger);
-        beksultan.petList();
-        beksultan.addpet(pug);
-        beksultan.petList();
-        System.out.println("Owner's name is " + beksultan.getName());
-        System.out.println(beksultan.getName() + "'s home adress is " + beksultan.getAddress());
-        System.out.println(beksultan.getName() + "'s email is " + beksultan.getEmail());
-        System.out.println(beksultan.getName() + "'s phone number is " + beksultan.getPhone());
-        System.out.println(beksultan);
-
-        System.out.println("\nTesting Veterenarian Class:");
-        System.out.println("Veterenarian name is " + aidana.getName());
-        System.out.println(aidana.getName() + "'s Phone Number is " + aidana.getPhone());
-        System.out.println(aidana.getName() + " is on work: " + aidana.isOnWork());
-        aidana.startWork();
-        System.out.println(aidana.getName() + " is on work: " + aidana.isOnWork());
-        aidana.addRating(5);
-        aidana.addRating(4);
-        aidana.addRating(6);
-        System.out.println(aidana.getName() + "'s rating is " + aidana.getRating());
-        System.out.println(aidana);
-
-        ArrayList<Person> people = new ArrayList<>();
-        people.add(beksultan);
-        people.add(aidana);
-
-        System.out.println("\nPolymorphic work method output:");
-        for (Person p : people) {
-            System.out.println(p.work());
-            if (p instanceof Veterenarian) System.out.println("This person is a Veterinarian");
-            else if (p instanceof Owner) System.out.println("This person is an Owner");
-        }
+        scanner.close();
     }
 }
+
