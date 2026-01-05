@@ -1,6 +1,6 @@
 package com.beksultan.vetclinic;
 
-public class Veterenarian {
+public class Veterenarian extends Person{
     private String name;
     private String phone;
     private String AnimalSpeciality; // home pets, farm animals, exotic animals or all of them
@@ -9,14 +9,17 @@ public class Veterenarian {
     private int rating;
     private int ratingcount;
 
-    public Veterenarian(String name, String phone, String animalspeciality, int experienceyears) {
-        setName(name);
-        setPhone(phone);
-        setAnimalSpeciality(animalspeciality);
-        setExperienceYears(experienceyears);
+    public Veterenarian(String name, String phone, String email, String animalSpeciality, int experienceYears) {
+        super(name, phone, email, Gender.FEMALE);
+        this.name = name;
+        this.phone = phone;
+        this.AnimalSpeciality = animalSpeciality;
+        this.Experience = experienceYears;
         this.onWork = false;
+
         setRating(0, 0);
     }
+
 
 
 
@@ -87,6 +90,11 @@ public class Veterenarian {
         }
 
     }
+
+    @Override
+    public String work() {
+            return name + " Is treating animals: " + AnimalSpeciality;
+}
 
     @Override
     public String toString() {

@@ -1,12 +1,16 @@
 package com.beksultan.vetclinic;
 
+import java.util.ArrayList;  // + needed for ArrayList
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello Everyone!\nThis is my vetclinic application for my oop course");
+
         Pet honeybadger = new Pet("VipKazakh", "Honeybadger", 4, Gender.FEMALE, false);
         Pet pug = new Pet("Megatron", "pug", 7, Gender.MALE, true);
+
         Owner beksultan = new Owner("Beksultan", "+77777777777", "254524@astanait.edu.kz", "Tole BI 46 st", Gender.MALE);
-        Veterenarian aidana = new Veterenarian("Aidana", "+77766666777", " Every animal", 10);
+        Veterenarian aidana = new Veterenarian("Aidana", "+77766666777", "aidana@vet.com", "Every animal", 10);
 
         System.out.println("Testing Pet Class:");
         System.out.println(honeybadger.getName() + " is " + honeybadger.getAge() + " years old");
@@ -48,7 +52,18 @@ public class Main {
         aidana.addRating(5);
         aidana.addRating(4);
         aidana.addRating(6);
-        System.out.println(aidana.getName() + "'s rating is " +aidana.getRating());
+        System.out.println(aidana.getName() + "'s rating is " + aidana.getRating());
         System.out.println(aidana);
+
+        ArrayList<Person> people = new ArrayList<>();
+        people.add(beksultan);
+        people.add(aidana);
+
+        System.out.println("\nPolymorphic work method output:");
+        for (Person p : people) {
+            System.out.println(p.work());
+            if (p instanceof Veterenarian) System.out.println("This person is a Veterinarian");
+            else if (p instanceof Owner) System.out.println("This person is an Owner");
+        }
     }
 }

@@ -2,7 +2,7 @@ package com.beksultan.vetclinic;
 
 import java.util.ArrayList;
 
-public class Owner {
+public class Owner extends Person{
     private String name;
     private String phone;
     private Gender gender;
@@ -10,15 +10,16 @@ public class Owner {
     private String address;
     private ArrayList<Pet> pets;
 
-    public Owner(String name, String phone, String email, String address,  Gender gender) {
+    public Owner(String name, String phone, String email, String address, Gender gender) {
+        super(name, phone, email, gender); // вызов конструктора суперкласса
         this.name = name;
         this.phone = phone;
+        this.gender = gender;
         this.email = email;
         this.address = address;
-        this.gender = gender;
         this.pets = new ArrayList<>();
-
     }
+
 
     public String getName() {return name;}
     public String getPhone() {return phone;}
@@ -44,13 +45,19 @@ public class Owner {
         }
     }
     public void setEmail(String email) {
-        if (Validating.isValidStr(email) &&  email.contains("@")) {
+        if (Validating.isValidStr(email)
+                && email.contains("@")
+                && email.indexOf("@") != 0
+                && email.indexOf("@") != email.length() - 1) {
+
             this.email = email;
-        }
-        else {
-            throw new IllegalArgumentException("Email is invalid, please try again with another email!");
+        } else {
+            throw new IllegalArgumentException(
+                    "Email invalid! Must contain '@' and not be at start/end"
+            );
         }
     }
+
     public void setAddress(String address) {
         if (Validating.isValidStr(address)) {
             this.address = address;
@@ -73,6 +80,11 @@ public class Owner {
         for (Pet pet : pets) {
             System.out.println(pet.getName() + " " + pet.getSpecies() + " " + pet.getAge());
         }
+    }
+
+    @Override
+    public String work() {
+        return name + " takes care of pets at home.";
     }
 
     @Override
