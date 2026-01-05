@@ -11,7 +11,7 @@ public class Owner extends Person{
     private ArrayList<Pet> pets;
 
     public Owner(String name, String phone, String email, String address, Gender gender) {
-        super(name, phone, email, gender); // вызов конструктора суперкласса
+        super(name, phone, email, gender);
         this.name = name;
         this.phone = phone;
         this.gender = gender;

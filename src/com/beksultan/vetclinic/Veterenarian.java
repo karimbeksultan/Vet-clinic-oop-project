@@ -3,7 +3,7 @@ package com.beksultan.vetclinic;
 public class Veterenarian extends Person{
     private String name;
     private String phone;
-    private String AnimalSpeciality; // home pets, farm animals, exotic animals or all of them
+    private String AnimalSpeciality;
     private int Experience;
     private boolean onWork;
     private int rating;
