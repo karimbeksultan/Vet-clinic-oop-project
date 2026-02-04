@@ -1,14 +1,10 @@
 package model;
 
-
 import exception.InvalidInputException;
 
-import java.util.ArrayList;
+public class Owner extends Person {
 
-
-public class Owner extends Person implements Servable {
     private String address;
-    private ArrayList<Pet> pets = new ArrayList<>();
 
     public Owner(String name, String phone, String email, String address, Gender gender)
             throws InvalidInputException {
@@ -16,26 +12,27 @@ public class Owner extends Person implements Servable {
         setAddress(address);
     }
 
-    public void addPet(Pet pet) {
-        pets.add(pet);
+    public String getAddress() {
+        return address;
     }
 
     public void setAddress(String address) throws InvalidInputException {
-        if (!Validating.isValidStr(address)) throw new InvalidInputException("Address is invalid");
+        if (!Validating.isValidStr(address)) {
+            throw new InvalidInputException("Address cannot be empty");
+        }
         this.address = address;
     }
 
     @Override
-    public String getRole() { return "model.Owner"; }
-
-    @Override
-    public void serve() {
-        System.out.println(name + " takes care of their pets!");
+    public String getRole() {
+        return "Owner";
     }
 
     @Override
     public String toString() {
-        return name + " (model.Owner)\nPhone: " + phone + "\nEmail: " + email + "\nAddress: " + address;
+        return name + " (Owner) [ID: " + id + "]\n" +
+                "Phone: " + phone + "\n" +
+                "Email: " + email + "\n" +
+                "Address: " + address;
     }
 }
-

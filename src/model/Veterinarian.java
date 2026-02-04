@@ -9,9 +9,18 @@ public class Veterinarian extends Person implements Servable {
     public Veterinarian(String name, String phone, String email,
                         String specialization, int experience)
             throws InvalidInputException {
-        super(name, phone, email, Gender.FEMALE);
+        super(name, phone, email, Gender.FEMALE); // Changed to Gender.FEMALE
         setSpecialization(specialization);
         setExperience(experience);
+    }
+
+    // Getter methods
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public int getExperience() {
+        return experience;
     }
 
     public void setSpecialization(String specialization) throws InvalidInputException {
@@ -21,12 +30,15 @@ public class Veterinarian extends Person implements Servable {
     }
 
     public void setExperience(int experience) throws InvalidInputException {
-        if (experience < 0) throw new InvalidInputException("Experience cannot be negative");
+        if (experience < 0)
+            throw new InvalidInputException("Experience cannot be negative");
         this.experience = experience;
     }
 
     @Override
-    public String getRole() { return "model.Veterinarian"; }
+    public String getRole() {
+        return "Veterinarian";
+    }
 
     @Override
     public void serve() {
@@ -38,4 +50,3 @@ public class Veterinarian extends Person implements Servable {
         return name + " (Vet " + specialization + ", " + experience + " yrs)";
     }
 }
-
