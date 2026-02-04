@@ -3,25 +3,34 @@ package model;
 import exception.InvalidInputException;
 
 public class Veterinarian extends Person implements Servable {
+    private int id;
     private String specialization;
     private int experience;
 
+    // Конструктор без ID
     public Veterinarian(String name, String phone, String email,
                         String specialization, int experience)
             throws InvalidInputException {
-        super(name, phone, email, Gender.FEMALE); // Changed to Gender.FEMALE
+        this(0, name, phone, email, specialization, experience);
+    }
+
+    // Конструктор с ID
+    public Veterinarian(int id, String name, String phone, String email,
+                        String specialization, int experience)
+            throws InvalidInputException {
+        super(name, phone, email, Gender.FEMALE); // Можно изменить на передачу gender
+        this.id = id;
         setSpecialization(specialization);
         setExperience(experience);
     }
 
-    // Getter methods
-    public String getSpecialization() {
-        return specialization;
-    }
+    // Getters и Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public int getExperience() {
-        return experience;
-    }
+    public String getSpecialization() { return specialization; }
+
+    public int getExperience() { return experience; }
 
     public void setSpecialization(String specialization) throws InvalidInputException {
         if (!Validating.isValidStr(specialization))
@@ -47,6 +56,6 @@ public class Veterinarian extends Person implements Servable {
 
     @Override
     public String toString() {
-        return name + " (Vet " + specialization + ", " + experience + " yrs)";
+        return "ID: " + id + " - " + name + " (Vet " + specialization + ", " + experience + " yrs)";
     }
 }

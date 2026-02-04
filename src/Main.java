@@ -1,5 +1,3 @@
-package main;
-
 import database.DatabaseConnection;
 import menu.MenuManager;
 import java.sql.Connection;
