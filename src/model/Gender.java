@@ -1,5 +1,12 @@
 package model;
 
-public enum Gender {
-    MALE, FEMALE
+public enum Gender
+{
+    MALE,
+    FEMALE;
+
+    @Override
+    public String toString() {
+        return name().toLowerCase();
+    }
 }

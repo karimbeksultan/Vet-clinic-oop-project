@@ -1,84 +1,100 @@
 package model;
 
-import exception.InvalidInputException;
-
-public class Pet implements Servable {
-    private int id;
+public class Pet {
+    private long id;
     private String name;
-    private String species;
-    private int age;
-    private Gender gender;
     private boolean vaccinated;
-    private int ownerId; // ссылка на владельца
+    private Animal animal;
 
-    // Конструктор без ID (для создания нового)
-    public Pet(String name, String species, int age, Gender gender, boolean vaccinated)
-            throws InvalidInputException {
-        this(0, name, species, age, gender, vaccinated);
-    }
-
-    // Конструктор с ID (для загрузки из базы)
-    public Pet(int id, String name, String species, int age, Gender gender, boolean vaccinated)
-            throws InvalidInputException {
-        this.id = id;
+    public Pet(String name, boolean vaccinated, Animal animal) {
         setName(name);
-        setSpecies(species);
-        setAge(age);
-        this.gender = gender;
-        this.vaccinated = vaccinated;
+        setVaccinated(vaccinated);
+        this.animal = animal;
     }
 
-    // Getters и Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-
-    public String getName() { return name; }
-    public void setName(String name) throws InvalidInputException {
-        if (!Validating.isValidStr(name))
-            throw new InvalidInputException("Pet name is invalid");
-        this.name = name;
+    public Pet(long id, String name, boolean vaccinated, Animal animal) {
+        setId(id);
+        setName(name);
+        setVaccinated(vaccinated);
+        setAnimal(animal);
     }
 
-    public String getSpecies() { return species; }
-    public void setSpecies(String species) throws InvalidInputException {
-        if (!Validating.isValidStr(species))
-            throw new InvalidInputException("Species is invalid");
-        this.species = species;
+    public Animal getAnimal() {return animal;}
+    public long getId() {return id;}
+    public String getName() {return name;}
+    public int getAge() {return animal.getAge();}
+    public Gender getGender() {return animal.getGender();}
+    public String getBreed() {return animal.getBreed();}
+    public boolean isVaccinated() {return vaccinated;}
+
+    public void setId(long id) {
+        if (id >= 0) {
+            this.id = id;
+        }
+        else {
+            throw new IllegalArgumentException("Id is already exists, please try again with another id!");
+        }
     }
 
-    public int getAge() { return age; }
-    public void setAge(int age) throws InvalidInputException {
-        if (age < 0 || age > 100)
-            throw new InvalidInputException("Age must be 0–100");
-        this.age = age;
+    public void setName(String name) {
+        if (Validating.isValidStr(name)) {
+            this.name = name;
+        }
+        else {
+            throw new IllegalArgumentException("Pet name is invalid, please try again with another name!");
+        }
+    }
+    public void setAge(int age) {
+        if (age >= 0 && age <= 100) {
+            animal.setAge(age);
+        }
+        else {
+            throw new IllegalArgumentException("Age is invalid, please try again with another age!");
+        }
+    }
+    public void setGender(Gender gender) {
+        if (gender != null) {
+            animal.setGender(gender);
+        }
+        else {
+            throw new IllegalArgumentException("Gender is invalid, please try again with another gender!");
+        }
     }
 
-    public Gender getGender() { return gender; }
-    public void setGender(Gender gender) { this.gender = gender; }
+    public void setBreed(String breed) {
+        if (breed != null) {
+            animal.setBreed(breed);
+        }
+        else {
+            throw new IllegalArgumentException("Breed is invalid, please try again with another breed!");
+        }
+    }
 
-    public boolean isVaccinated() { return vaccinated; }
-    public void setVaccinated(boolean vaccinated) { this.vaccinated = vaccinated; }
+    public void setAnimal(Animal animal) {
+        if (animal == null) throw new IllegalArgumentException("Animal cannot be null");
+        this.animal = animal;
+    }
 
-    public int getOwnerId() { return ownerId; }
-    public void setOwnerId(int ownerId) { this.ownerId = ownerId; }
 
-    public void vaccinate() {
-        if (!vaccinated) {
-            vaccinated = true;
-            System.out.println(name + " has been vaccinated!");
-        } else {
-            System.out.println(name + " is already vaccinated!");
+    public void setVaccinated(boolean vaccinated) {this.vaccinated = vaccinated;}
+
+    public void birthday(){
+        animal.setAge(animal.getAge() + 1);
+        System.out.printf("%s turned %d!\n", name, animal.getAge());
+    }
+
+    public void vaccinate(){
+        if (!vaccinated){
+            this.vaccinated = true;
+            System.out.printf("%s has been vaccinated!\n", name);
+        }
+        else{
+            System.out.printf("%s is already vaccinated!\n", name);
         }
     }
 
     @Override
-    public void serve() {
-        System.out.println(name + " is being cared for!");
-    }
-
-    @Override
     public String toString() {
-        return "ID: " + id + " - " + name + " (" + species + ", " + age + " yo, " + gender +
-                ", vaccinated=" + vaccinated + ", ownerId=" + ownerId + ")";
+        return "(" + id + ") " + name + " - " + animal.getType() + "\n" + animal.getAge() + " years old\nGender: " + animal.getGender() + "\nVaccinated: " + vaccinated;
     }
 }

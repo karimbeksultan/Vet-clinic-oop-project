@@ -1,6 +1,6 @@
 package menu;
 
 public interface Menu {
-    void displayMenu();
-    void run();
+    public void displayMenu();
+    public void run();
 }
